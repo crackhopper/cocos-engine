@@ -142,6 +142,11 @@ export class EditBoxImpl extends EditBoxImplBase {
     }
 
     public update (): void {
+        if (!this._delegate) {
+          // 修复编辑器有时候这个变量为null带来的问题。
+          // 临时修改，目前无法确认编辑器为什么会丢失这个变量。（感觉是新建的空的EditBoxImpl导致的
+          return;
+        }
         const node = this._delegate!.node;
         if (!node.hasChangedFlags) {
             return;
